@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PyR3Q - WebSite</title>	
+	<meta charset="utf-08">
+	<link rel="icon" type="image/png" href="https://i.ibb.co/q5PvF8S/Git-Hub-Mark.png">
+	<link href='https://fonts.googleapis.com/css?family=Kalam' rel='stylesheet'>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900&display=swap" rel="stylesheet"> 
+</head>
+<body bgcolor="black">
+	<center>
+		<h1>Make a Shellcode in x86-64</h1>
+		<img src="https://www.pngkey.com/png/full/140-1409984_python-logo-bash-shell-logo-shell-script-logo.png" width="200">
+		<strong><p><font size="3">Contact Me:<a href="https://instagram.com/pyr3q">.<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1200px-Instagram_logo_2016.svg.png" width="30"></a></font></p></strong>
+	</center>
+	<br>
+	<center>
+	<strong><p><font size="5">Summary:</font></p></strong>
+	<ul>
+		<strong><li><font size="4">x86-64 execve -> /bin/sh</font></li>
+		<li><font size="4">Reverse ASM Program. </font></li>
+		<li><font size="4">Execute a Shellcode In C langage.</font></li></strong>
+	</ul>
+</center>
+		<br>
+		<center>
+		<h1><font size="6">-= x86-64 ASM Program [ EXECVE Syscall ] =-</font></h1>
+	</center>
+		<center>
+		<strong><p><font size="4">To start we need to create an assembler program (here in 64bits with Intel syntax)</font></p>
+		<p><font size="4">to get a shell we will use the execve function which is a system interaction function.</font></p>
+		<p><font size="4">for regulars of c here is the conversion to c of execve:</font></p>
+		<img src="/root/Bureau/programmation/html/article/execve.png" width="800">
+		<p><font size="4">with this <a href="https://syscalls.w3challs.com/?arch=x86_64">site</a> we will be able to have the list of syscalls with
+instructions to do.</font></p>
+		<p><font size="4">We can see that for the execve function</font></p>
+		<p><font size="4">the RDI register must have the value of the character string that we want to execute with execve, i.e. / bin / sh</font></p>
+		<p><font size="4">also, we will set the RSI register to 0 with the instruction xor</font></p>
+		<p><font size="4">the RAX register must have a value of 59 (decimal) or 0x3b in hexadecimal, it is a simple summary of the program in assembler which will follow.</font></p>
+		<img src="/root/Bureau/programmation/html/article/asm.png" width="300">
+		<p><font size="4">once the program is created we will compile it with NASM and LD and then execute it.</font></p>
+		<img src="/root/Bureau/programmation/html/article/shell.png" width="450">
+		<p><font size="4">we got a shell in x86-64 assembly! Now let's go to the reverse phase!</font></p></strong>
+	</center>
+	<center>
+	<h1><font size="6">-= Reverse Binary With OBJDUMP =-</font></h1>
+</center>
+	<center>
+		<strong><p><font size="4">Now we will reverse this compiled program to get a shellcode.</font></p>
+		<p><font size="4"> Shellcode ? What is it ?</font></p>
+		<ul>
+			<li>a shellcode is a hexadecimal instruction chain, what is characteristic of having the form \ x? .</li>
+			<li>In hacking, a shellcode can allow the exploitation of a vulnerability in software, </li>
+		    <li>in particular in a Buffer Overflow (article soon).</li>
+		</ul>
+		<p><font size="4">To reverse this program I will use the objdump tool with the output Intel syntax</font></p>
+		<img src="/root/Bureau/programmation/html/article/objdump1.png" width="500">
+		<p><font size="4">we can see hexadecimal characters which will be used for the creation of the shellcode.</font></p>
+		<p><font size="4">These are the instructions in asm which are directly converted into machine language.</font></p>
+		<p><font size="4">so we will take these hexadecimal characters and put them in shellcode format. So we get:</font></p>
+		<p><font size="4">Shellcode -> "\x48\x31\xf6\x56\x48\xbf\x2f\x62\x69\x6e\x2f\....."</font></p>
+		<p><font size="4">We got our shellcode! Let's move on to exploiting the shellcode with the C language!</font></p></strong>
+	</center>
+	<center>
+	<h1>-= Execute a Shellcode in C =-</h1>
+</center>
+	<center>
+		<strong><p><font size="4">Now, we going to make a program which will allow us to obtain a shell.</font></p>
+		<p><font size="4">We will point to the shellcode to get the shell.</font></p>
+		<img src="/root/Bureau/programmation/html/article/shellcodec.png" width="800">
+		<p><font size="4">now we are going to compile the script with gcc by disabling stack protection</font></p>
+		<img src="/root/Bureau/programmation/html/article/compiler.png" width="800">
+		<p><font size="4">and now we have got a shell under sh with a shellcode!</font></p>
+		<p><font size="4">thank you for reading this article, see you next time!</font></p></strong>
+		<p><font size="3">Made By @PyR3q</font></p>
+	<style>
+		ul{
+			font-family: "Kalam", sans-serif;
+			color: white;
+		}
+		body{
+                background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png);
+        }
+        img{
+        	opacity: 0.8;
+        }
+        td{
+        	text-shadow: 5px 0px 10px purple;
+        }
+        p{  
+        	color: white;
+            font-family: 'Kalam', sans-serif;            
+        }
+        h1{
+        	font-size: 40px;
+        	color: red;
+        	font-family: 'Kalam', sans-serif;
+        	text-shadow: 5px 0px 10px green;
+
+        }
+        .name{
+        	    width: 53%;
+        }
+    </style>
+</body>
+</html>
