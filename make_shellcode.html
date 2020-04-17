@@ -37,9 +37,9 @@ instructions to do.</font></p>
 		<p><font size="4">the RDI register must have the value of the character string that we want to execute with execve, i.e. / bin / sh</font></p>
 		<p><font size="4">also, we will set the RSI register to 0 with the instruction xor</font></p>
 		<p><font size="4">the RAX register must have a value of 59 (decimal) or 0x3b in hexadecimal, it is a simple summary of the program in assembler which will follow.</font></p>
-		<img src="https://github.com/pyr3q/pyr3q.github.io/blob/master/articles/IMG/asm.png" width="300">
+		<img src="articles/IMG/asm.png" width="300">
 		<p><font size="4">once the program is created we will compile it with NASM and LD and then execute it.</font></p>
-		<img src="https://github.com/pyr3q/pyr3q.github.io/blob/master/articles/IMG/shell.png" width="450">
+		<img src="articles/IMG/shell.png" width="450">
 		<p><font size="4">we got a shell in x86-64 assembly! Now let's go to the reverse phase!</font></p></strong>
 	</center>
 	<center>
@@ -54,7 +54,7 @@ instructions to do.</font></p>
 		    <li>in particular in a Buffer Overflow (article soon).</li>
 		</ul>
 		<p><font size="4">To reverse this program I will use the objdump tool with the output Intel syntax</font></p>
-		<img src="https://github.com/pyr3q/pyr3q.github.io/blob/master/articles/IMG/objdump1.png" width="500">
+		<img src="articles/IMG/objdump1.png" width="500">
 		<p><font size="4">we can see hexadecimal characters which will be used for the creation of the shellcode.</font></p>
 		<p><font size="4">These are the instructions in asm which are directly converted into machine language.</font></p>
 		<p><font size="4">so we will take these hexadecimal characters and put them in shellcode format. So we get:</font></p>
@@ -67,9 +67,9 @@ instructions to do.</font></p>
 	<center>
 		<strong><p><font size="4">Now, we going to make a program which will allow us to obtain a shell.</font></p>
 		<p><font size="4">We will point to the shellcode to get the shell.</font></p>
-		<img src="https://github.com/pyr3q/pyr3q.github.io/blob/master/articles/IMG/shellcodec.png" width="800">
+		<img src="articles/IMG/shellcodec.png" width="800">
 		<p><font size="4">now we are going to compile the script with gcc by disabling stack protection</font></p>
-		<img src="https://github.com/pyr3q/pyr3q.github.io/blob/master/articles/IMG/compiler.png" width="800">
+		<img src="articles/IMG/compiler.png" width="800">
 		<p><font size="4">and now we have got a shell under sh with a shellcode!</font></p>
 		<p><font size="4">thank you for reading this article, see you next time!</font></p></strong>
 		<p><font size="3">Made By @PyR3q</font></p>
