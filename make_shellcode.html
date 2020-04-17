@@ -68,6 +68,9 @@ instructions to do.</font></p>
 		<strong><p><font size="4">Now, we going to make a program which will allow us to obtain a shell.</font></p>
 		<p><font size="4">We will point to the shellcode to get the shell.</font></p>
 		<img src="articles/IMG/shellcodec.png" width="800">
+		<p><font size="4">using gdb-peda we can debug the program, and we can see that the RDI register takes good value "/ bin / sh"</font></p>
+		<p><font size="4">and RSP which is the register stack pointer takes well the system call to execve</font></p>
+		<img src="article/IMG/rip.png" width="500">
 		<p><font size="4">now we are going to compile the script with gcc by disabling stack protection</font></p>
 		<img src="articles/IMG/compiler.png" width="800">
 		<p><font size="4">and now we have got a shell under sh with a shellcode!</font></p>
